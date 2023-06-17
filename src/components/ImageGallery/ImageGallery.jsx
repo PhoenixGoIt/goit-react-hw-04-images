@@ -9,6 +9,7 @@ function ImageGallery({ items }) {
       <ul className={css.ImageGallery}>
         {items.map(item => (
           <ImageGalleryItem key={item.id} item={item} />
+          
         ))}
       </ul>
     </>

@@ -11,6 +11,6 @@ export async function pixabayApi (input, page) {
         console.error(error);
     
       } finally {
-        console.log('2 - pixabayApi');
+        console.log('3 - pixabayApi');
       }
 }

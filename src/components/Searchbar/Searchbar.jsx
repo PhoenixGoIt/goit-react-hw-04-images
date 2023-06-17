@@ -2,6 +2,7 @@ import css from '../../Styles/styles.module.css'
 import PropTypes from 'prop-types';
 import { ReactComponent as AddIcon } from '../../Icon/search.svg';
 import { useState } from 'react';
+import Notiflix from "notiflix";
 
 const Searchbar = ({onSubmit}) => {
   const [inputData, setInputData] = useState('2')
@@ -11,6 +12,9 @@ const Searchbar = ({onSubmit}) => {
   };
    function handleSubmit (e) {
     e.preventDefault();
+    if (inputData.trim() === '') {
+      Notiflix.Notify.info('Enter Text!');
+      return;}
     onSubmit(inputData);
     console.log('1 - Searchbar')
   };
