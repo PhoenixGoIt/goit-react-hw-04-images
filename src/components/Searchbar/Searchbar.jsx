@@ -5,10 +5,11 @@ import { useState } from 'react';
 import Notiflix from "notiflix";
 
 const Searchbar = ({onSubmit}) => {
-  const [inputData, setInputData] = useState('2')
-
+  const [inputData, setInputData] = useState('')
+  const [value, setValue] = useState('')
   function onChangeInput (e) {
     setInputData(e.currentTarget.value.toLowerCase())
+    setValue(e.currentTarget.value.toLowerCase())
   };
    function handleSubmit (e) {
     e.preventDefault();
@@ -16,7 +17,7 @@ const Searchbar = ({onSubmit}) => {
       Notiflix.Notify.info('Enter Text!');
       return;}
     onSubmit(inputData);
-    console.log('1 - Searchbar')
+
   };
     return (
       <header className={css.Searchbar}>
@@ -26,6 +27,7 @@ const Searchbar = ({onSubmit}) => {
           </button>
 
           <input
+          value={value}
             className={css.SearchForm_input}
             name="inputData"
             onChange={(e) => onChangeInput(e)}
@@ -44,14 +46,3 @@ Searchbar.propType = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-
-//   renderImg(data) {
-    //     console.log(data)
-    //     if (data !== undefined) {
-    //       const markup = data.map(({ webformatURL }) => {
-    //         return `<div class="photo-card">
-    //           <img src="${webformatURL}" alt="" loading="lazy" width="420" height="300"/>
-    //         </div>`;
-    //       })
-    //     }
-    // } 

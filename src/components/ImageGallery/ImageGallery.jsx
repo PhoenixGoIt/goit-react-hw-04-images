@@ -3,7 +3,7 @@ import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem'
 import PropTypes from 'prop-types';
 
 function ImageGallery({ items }) {
-  console.log('4- ImageGallery')
+  console.log(items)
   return (
     <>
       <ul className={css.ImageGallery}>

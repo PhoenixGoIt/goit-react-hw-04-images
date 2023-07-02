@@ -2,7 +2,6 @@ import css from '../Styles/styles.module.css';
 import Searchbar from './Searchbar/Searchbar'
 import {pixabayApi} from './Api/pixabayApi'
 import Loader from './Loader/Loader'
-import Notiflix from "notiflix";
 import ImageGallery from 'components/ImageGallery/ImageGallery';
 import Button from "./LoadMoreBtn/LoadMoreBtn";
 import { useState, useEffect } from 'react';
@@ -16,6 +15,7 @@ const App = () => {
   const [page, setPage] = useState(1)
 
   function handleSubmit(e) {
+    setPage(1)
     setInputData(e)
   }
 
@@ -24,43 +24,23 @@ const App = () => {
         
         return;
       } else {
+        
         getPicture()
         async function getPicture() {
-          try {
             setStatus('pending');
-            
             const { totalHits, hits } = await pixabayApi(inputData, page);
-            if (hits.length < 1) {
-              setStatus('idle');
-              Notiflix.Notify.failure(
-                'Sorry, there are no images matching your search query. Please try again.'
-              );
-            } else {
-              setItems((prevState) => (hits));
-              setStatus('resolved')
-              setTotalHits(totalHits)
-            }
-          } catch (error) {
-            console.log(error)
-            setStatus('rejected');
-          }
+            setTotalHits(totalHits)
+            page === 1
+          ? setItems(hits)
+          : setItems(prevState => [...prevState, ...hits]);
+          setStatus('resolved');
         }
       }
-      console.log('2 - handleSubmit')
     ;
   }, [inputData, page])
   
   async function onNextPage () {
-    setStatus('pending');
-
-    try {
       setPage(prevGalleryPage => prevGalleryPage + 1);
-      const { hits } = await pixabayApi(inputData, page);
-      setItems((prevState) => ([...prevState ,...hits]))
-    } catch (error) {
-      setStatus('rejected');
-    }
-    console.log('2 - onNextPage')
   };
 
 
