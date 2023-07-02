@@ -58,7 +58,6 @@ const App = () => {
         <Searchbar onSubmit={(e) => handleSubmit(e)} />
         <ImageGallery page={page} items={items} />
         <Loader />
-        {totalHits > 12 && <Button onClick={() => onNextPage()} />}
       </div>
     );
   }
